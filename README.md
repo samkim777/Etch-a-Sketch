@@ -1,0 +1,1 @@
+A project of etch-a-sketch, one of its first kind at artistic toys

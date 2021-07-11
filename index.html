@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Etch-a-Sketch</title>
+</head>
+
+<body>
+    <div id='main_div'>
+        <canvas id='canvas' height='400' width='400'></canvas>
+    </div>
+
+    <script>
+        let canvas = document.querySelector('canvas');
+
+        var ctx = canvas.getContext('2d');
+        let boxWidth = 25;
+        let boxHeight = 25;
+        let canvasX = 0;
+        let canvasY = 0;
+
+        canvas.style.position = 'relative';
+        canvas.style.left = '40%';
+        canvas.style.top = '150px';
+        canvas.style.color = '#F7CAC9';
+        canvas.style.border = '1px solid';
+
+        //  ctx.fillStyle = '#92B901'
+        //  ctx.fillRect(50, 50, 100, 100);
+        for (let i = 0; i < 16; i++) {
+            if (canvasY < 400) {
+                for (let j = 0; j < 16; j++) {
+                    ctx.fillStyle = '#92B901';
+                    ctx.rect(canvasX, canvasY, boxWidth, boxHeight);
+                    ctx.stroke();
+                    canvasX += 25;
+
+                }
+                // at the end, add 16 pixels to Y value of our box
+                canvasY += 25;
+                canvasX = 0;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
