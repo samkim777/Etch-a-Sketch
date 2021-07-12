@@ -9,41 +9,63 @@
 
 <body>
     <div id='main_div'>
-        <canvas id='canvas' height='400' width='400'></canvas>
+
+
     </div>
 
     <script>
-        let canvas = document.querySelector('canvas');
-
-        var ctx = canvas.getContext('2d');
-        let boxWidth = 25;
-        let boxHeight = 25;
-        let canvasX = 0;
-        let canvasY = 0;
-
-        canvas.style.position = 'relative';
-        canvas.style.left = '40%';
-        canvas.style.top = '150px';
-        canvas.style.color = '#F7CAC9';
-        canvas.style.border = '1px solid';
-
-        //  ctx.fillStyle = '#92B901'
-        //  ctx.fillRect(50, 50, 100, 100);
+        let count;
+        let main_div = document.querySelector('#main_div');
         for (let i = 0; i < 16; i++) {
-            if (canvasY < 400) {
-                for (let j = 0; j < 16; j++) {
-                    ctx.fillStyle = '#92B901';
-                    ctx.rect(canvasX, canvasY, boxWidth, boxHeight);
-                    ctx.stroke();
-                    canvasX += 25;
+            let square_row = document.createElement('div');
+            square_row.style.backgroundColor = 'blue';
+            square_row.style.width = '20px';
+            square_row.style.height = '20px';
+            square_row.style.border = 'black 1px solid';
+            main_div.appendChild(square_row);
+            square_row.style.float = 'left';
+            for (let j = 0; j < 16; j++) {
+                let square_column = document.createElement('div');
+                // We have access to square_row in the 2nd for loop
+                square_column.style.backgroundColor = 'blue';
+                square_column.style.width = '20px';
+                square_column.style.height = '20px';
+                square_column.style.border = 'black 1px solid';
+                square_row.appendChild(square_column);
 
-                }
-                // at the end, add 16 pixels to Y value of our box
-                canvasY += 25;
-                canvasX = 0;
             }
         }
 
+
+
+
+        // For loops should create new divs so that we can use a mouseover event later on
+        // Cannot place anything inside canvas, so scratch that
+
+        //  ctx.fillStyle = '#92B901'
+        //  ctx.fillRect(50, 50, 100, 100);
+        // for (let i = 0; i < 16; i++) {
+        //     if (canvasY < 400) {
+        //         for (let j = 0; j < 16; j++) {
+        //             ctx.fillStyle = '#92B901';
+        //             square = ctx.rect(canvasX, canvasY, boxWidth, boxHeight);
+        //             if (squares.indexOf(square) === -1) {
+        //                 squares.push(square);
+        //             }
+        //             ctx.stroke();
+        //             canvasX += 25;
+
+        //         }
+        //         // at the end, add 16 pixels to Y value of our box
+        //         canvasY += 25;
+        //         canvasX = 0;
+        //     }
+        // }
+
+
+        // Second task is to set up a hover effect so that the grids change color when a mouse hovers over them
+        // Leaves a trail like a pen would
+        // Use the main_div as an event listener
 
 
 
