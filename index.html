@@ -14,27 +14,41 @@
     </div>
 
     <script>
-        let count;
-        let main_div = document.querySelector('#main_div');
+
+
+        let main_div = document.getElementById('main_div');
+        // Set up hover effect so that grid colors change when your mouse goes over them
+
+        main_div.style.zIndex = 3;
         for (let i = 0; i < 16; i++) {
             let square_row = document.createElement('div');
-            square_row.style.backgroundColor = 'blue';
+            square_row.style.backgroundColor = 'red';
             square_row.style.width = '20px';
             square_row.style.height = '20px';
             square_row.style.border = 'black 1px solid';
+            square_row.style.zIndex = 2;
             main_div.appendChild(square_row);
             square_row.style.float = 'left';
             for (let j = 0; j < 16; j++) {
                 let square_column = document.createElement('div');
                 // We have access to square_row in the 2nd for loop
-                square_column.style.backgroundColor = 'blue';
+                square_column.style.backgroundColor = 'pink';
                 square_column.style.width = '20px';
                 square_column.style.height = '20px';
                 square_column.style.border = 'black 1px solid';
+                square_column.style.zIndex = 1;
                 square_row.appendChild(square_column);
-
             }
         }
+
+        main_div.addEventListener('mouseover', mouseHover);
+
+        function mouseHover() {
+            main_div.style.backgroundColor = 'blue';
+            console.log('hovering');
+
+        }
+
 
 
 
