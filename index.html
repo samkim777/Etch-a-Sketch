@@ -14,40 +14,51 @@
     </div>
 
     <script>
-
-
         let main_div = document.getElementById('main_div');
-        // Set up hover effect so that grid colors change when your mouse goes over them
+        let square_row;
+        let square_column;
+        let square_list = [];
 
-        main_div.style.zIndex = 3;
+        main_div.style.minWidth = '100%';
+        main_div.style.minHeight = '100%';
+        // Set up hover effect so that grid colors change when your mouse goes over them
         for (let i = 0; i < 16; i++) {
-            let square_row = document.createElement('div');
+            square_row = document.createElement('div');
             square_row.style.backgroundColor = 'red';
             square_row.style.width = '20px';
             square_row.style.height = '20px';
             square_row.style.border = 'black 1px solid';
-            square_row.style.zIndex = 2;
             main_div.appendChild(square_row);
             square_row.style.float = 'left';
             for (let j = 0; j < 16; j++) {
-                let square_column = document.createElement('div');
+                square_column = document.createElement('div');
+                if (square_list.indexOf(square_column) === -1) {
+                    square_list.push(square_column);
+                }
                 // We have access to square_row in the 2nd for loop
                 square_column.style.backgroundColor = 'pink';
                 square_column.style.width = '20px';
                 square_column.style.height = '20px';
                 square_column.style.border = 'black 1px solid';
-                square_column.style.zIndex = 1;
                 square_row.appendChild(square_column);
             }
         }
 
+        // main_div.addEventListener('mouseover', mouseHover);
         main_div.addEventListener('mouseover', mouseHover);
 
         function mouseHover() {
-            main_div.style.backgroundColor = 'blue';
-            console.log('hovering');
+            // Change the color of the divs individually by adding them into a list after creation
+            // Adding a function upon mouseover that changes colors of the divs
+            // Everything inside main_div for the mouseover function
+            for (let i = 0; i < square_list.length; i++) {
+                square_list[i].addEventListener('mouseover', function () {
+                    square_list[i].style.backgroundColor = 'red';
+                })
 
+            }
         }
+        console.log(square_list.length);
 
 
 
