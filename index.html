@@ -19,20 +19,40 @@
         let square_list = [];
         let resetButton = document.getElementById('reset_btn');
 
+        var numberSquare;
+        var answer;
+        var squareSize = '20px';
+        var squareNumbers = 16;
+        console.log(squareNumbers);
+
+
+
+
+        const divSize = '400px';
         const squareColour = 'pink';
 
+        // Div size will remain a constant
+        main_div.style.width = divSize;
+        main_div.style.height = divSize;
+        main_div.style.marginRight = '0';
+
+        // WHY DOES THE VARIABLE NOT CHANGE????
+        // AHHHHHHH IT JUST NEEDS TO CHANGE THE VALUE THEN I CAN FINISH THE PROJECT
 
 
-        main_div.style.width = '400px';
-        main_div.style.height = '500px';
-        // Set up hover effect so that grid colors change when your mouse goes over them
+
+
+
         for (let i = 0; i < 16; i++) {
             square_row = document.createElement('div');
-           
-            square_row.style.width = '20px';
-            square_row.style.height = '20px';
+            square_row.style.width = squareSize;
+            square_row.style.height = squareSize;
             square_row.style.border = 'black 1px solid';
+            square_row.style.position = 'relative';
             main_div.appendChild(square_row);
+            //
+            // pixel size = (total pixel / num squares) - 2
+            // 
             square_row.style.float = 'left';
             for (let j = 0; j < 16; j++) {
                 square_column = document.createElement('div');
@@ -42,22 +62,42 @@
                 }
                 // We have access to square_row in the 2nd for loop
                 square_column.style.backgroundColor = squareColour;
-                square_column.style.width = '20px';
-                square_column.style.height = '20px';
+                square_column.style.position = 'relative';
+                square_column.style.width = squareSize;
+                square_column.style.height = squareSize;
                 square_column.style.border = 'black 1px solid';
                 square_row.appendChild(square_column);
             }
         }
 
+
         main_div.addEventListener('mouseover', mouseHover);
 
 
+
         // Reset button function
-        resetButton.addEventListener('click', function () {
+        resetButton.addEventListener('click', reset);
+
+
+
+        function reset() {
+            numberSquare = parseInt(prompt('Number of squares per side?', '16'));
+            squareSize = ((400 / numberSquare) - 2) + 'px'; // 13.333px, a String
+
             for (let k = 0; k < square_list.length; k++) {
                 square_list[k].style.backgroundColor = squareColour;
+                square_list[k].style.width = squareSize;
+                square_list[k].style.height = squareSize;
+             
             }
-        })
+
+            
+        }
+
+   
+
+
+
 
         function mouseHover() {
             // Change the color of the divs individually by adding them into a list after creation
@@ -71,9 +111,9 @@
             }
         }
 
-        // Feature : add a button that 1) Clear current Grid 
-        //                             2) Send user a pop up asking for number of squares per side
-        //                                Any number of squares should be inside the same div box
+
+
+
 
 
 
