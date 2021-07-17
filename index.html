@@ -19,11 +19,13 @@
         let square_list = [];
         let resetButton = document.getElementById('reset_btn');
 
+
+        var buttonTriggered = false;
         var numberSquare;
         var answer;
-        var squareSize = '20px';
+        var squareSize;
         var squareNumbers = 16;
-        console.log(squareNumbers);
+
 
 
 
@@ -34,41 +36,51 @@
         // Div size will remain a constant
         main_div.style.width = divSize;
         main_div.style.height = divSize;
-        main_div.style.marginRight = '0';
+        main_div.style.position = 'relative';
 
-        // WHY DOES THE VARIABLE NOT CHANGE????
-        // AHHHHHHH IT JUST NEEDS TO CHANGE THE VALUE THEN I CAN FINISH THE PROJECT
+        // When this is the first time we come to the page, create a 16x16 box
+        // Otherwise, ask for size to user
+
+        // Height at the top borders is slightly smaller than rest
+        createSquares(64);
 
 
 
 
 
-        for (let i = 0; i < 16; i++) {
-            square_row = document.createElement('div');
-            square_row.style.width = squareSize;
-            square_row.style.height = squareSize;
-            square_row.style.border = 'black 1px solid';
-            square_row.style.position = 'relative';
-            main_div.appendChild(square_row);
-            //
-            // pixel size = (total pixel / num squares) - 2
-            // 
-            square_row.style.float = 'left';
-            for (let j = 0; j < 16; j++) {
-                square_column = document.createElement('div');
-                // Prevent counting the 16 squares in the first row
-                if (square_list.indexOf(square_column) === -1) {
-                    square_list.push(square_column);
+        // Let's wait for a button trigger, and if not triggered just let it use 16 
+        function createSquares(numSquare) {
+            squareNumbers = parseInt(numSquare);
+            squareSize = (400 / squareNumbers);
+            for (let i = 0; i < squareNumbers; i++) {
+                square_row = document.createElement('div');
+                square_row.style.backgroundColor = squareColour;
+                square_row.style.width = (squareSize )+ 'px';
+                square_row.style.height = (squareSize) + 'px';
+                // Get rid of box border 
+                main_div.appendChild(square_row);
+                square_row.style.float = 'left';
+                for (let j = 0; j < squareNumbers; j++) {
+                    square_column = document.createElement('div');
+
+                    // Prevent counting the 16 squares in the first row
+                    // We have access to square_row in the 2nd for loop
+                    square_column.style.backgroundColor = squareColour;
+                    square_column.style.width = (squareSize ) + 'px';
+                    square_column.style.height = (squareSize )+ 'px';
+                    square_column.style.border = 'black 0 solid'
+                    square_column.style.float = 'left';
+                    // square_column.style.padding = '-2px';
+                    if (square_list.indexOf(square_column) === -1) {
+                        square_list.push(square_column);
+                    }
+                    square_row.appendChild(square_column);
                 }
-                // We have access to square_row in the 2nd for loop
-                square_column.style.backgroundColor = squareColour;
-                square_column.style.position = 'relative';
-                square_column.style.width = squareSize;
-                square_column.style.height = squareSize;
-                square_column.style.border = 'black 1px solid';
-                square_row.appendChild(square_column);
-            }
+            } 
         }
+
+
+
 
 
         main_div.addEventListener('mouseover', mouseHover);
@@ -77,24 +89,23 @@
 
         // Reset button function
         resetButton.addEventListener('click', reset);
+        resetButton.style.position = 'absolute';
 
 
 
         function reset() {
-            numberSquare = parseInt(prompt('Number of squares per side?', '16'));
-            squareSize = ((400 / numberSquare) - 2) + 'px'; // 13.333px, a String
+            buttonTriggered = true;
+            numberSquare = parseInt(prompt('number of squares?', 16));
 
             for (let k = 0; k < square_list.length; k++) {
                 square_list[k].style.backgroundColor = squareColour;
                 square_list[k].style.width = squareSize;
                 square_list[k].style.height = squareSize;
-             
             }
-
             
         }
 
-   
+
 
 
 
@@ -107,7 +118,6 @@
                 square_list[i].addEventListener('mouseover', function () {
                     square_list[i].style.backgroundColor = 'red';
                 })
-
             }
         }
 
