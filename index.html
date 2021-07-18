@@ -7,38 +7,83 @@
     <title>Etch-a-Sketch</title>
 </head>
 
-<body>
-    <div id='main_div'>
+<body id='body'>
+    <div id='main_backgroundDiv'>
+        <p id='top_headline'></p>
+        <div id='backgroundDiv'>
+            <div id='main_div'>
+            </div>
+        </div>
     </div>
     <button id='reset_btn'> Reset </button>
 
+
     <script>
+        let body = document.getElementById('body');
+        let main_backgroundDiv = document.getElementById('main_backgroundDiv');
+        let background_div = document.getElementById('backgroundDiv');
         let main_div = document.getElementById('main_div');
-
         let square_list = [];
-
         let resetButton = document.getElementById('reset_btn');
+        let headline = document.getElementById('top_headline')
 
-
-        var buttonTriggered = false;
         var numberSquare;
         var squareSize;
 
 
 
 
-
         const divSize = '400px';
         const squareColour = 'pink';
+        // Headline
+
+
+
+
+        // Get rid of vertical scrollbar
+        body.style.overflowY = 'hidden'
+        body.style.margin = '0'
+
 
         // Div size will remain a constant
         main_div.style.width = divSize;
         main_div.style.height = divSize;
         main_div.style.position = 'relative';
+        main_div.style.padding = '15px';
+
+        // Background Div 1
+        background_div.style.width = '430px';
+        background_div.style.height = '430px';
+        background_div.style.backgroundColor = '#FFEDEC';
+        background_div.style.position = 'relative';
+        background_div.style.left = '33%';
+        background_div.style.top = '130px';
+
+        // Main bacground div
+        main_backgroundDiv.style.position = 'relative'
+        main_backgroundDiv.style.minWidth = '100%';
+        main_backgroundDiv.style.minHeight = '60vw';
+        main_backgroundDiv.style.backgroundColor = '#E1F5FE'
+
+
+        // Button
+        resetButton.style.position = 'absolute';
+        resetButton.style.left = '42%';
+        resetButton.style.bottom = '2px';
+        resetButton.style.marginBottom = '5%'
+        resetButton.style.borderRadius = '20%'
+        resetButton.style.border = 'transparent'
+        resetButton.style.backgroundColor = '#B2FFFF'
+        resetButton.style.width = '200px'
+        resetButton.style.height = '50px'
+
+
+
+
+
 
         // When this is the first time we come to the page, create a 16x16 box
         // Otherwise, ask for size to user
-
         createSquares(16);
 
 
@@ -46,11 +91,12 @@
 
 
 
-        // Let's wait for a button trigger, and if not triggered just let it use 16 
         function createSquares(numSquare) {
+            // Remove the previous instance of squares
             while (main_div.firstChild) {
                 main_div.removeChild(main_div.firstChild);
             }
+            // 
 
             let squareNumbers = parseInt(numSquare);
             let squareDim = (400 / squareNumbers);
@@ -61,22 +107,17 @@
                 square_row.style.backgroundColor = 'transparent';
                 square_row.style.width = (squareDim) + 'px';
                 square_row.style.height = (squareDim) + 'px';
-
-
-                // Get rid of box border 
                 main_div.appendChild(square_row);
                 square_row.style.float = 'left';
                 for (let j = 0; j < squareNumbers; j++) {
                     square_column = document.createElement('div');
 
-                    // Prevent counting the 16 squares in the first row
-                    // We have access to square_row in the 2nd for loop
                     square_column.style.backgroundColor = squareColour;
                     square_column.style.width = (squareDim) + 'px';
                     square_column.style.height = (squareDim) + 'px';
-                    square_column.style.border = 'black 0.1px solid';
+                    square_column.style.border = 'black 0 solid';
                     square_row.appendChild(square_column);
-                    // square_column.style.padding = '-2px';
+
                     if (square_list.indexOf(square_column) === -1) {
                         square_list.push(square_column);
                     }
@@ -95,16 +136,26 @@
 
         // Reset button function
         resetButton.addEventListener('click', reset);
-        resetButton.style.position = 'absolute';
+        resetButton.addEventListener('mouseover', changeColorHover)
+        resetButton.addEventListener('mouseleave', changeColorOut)
+
 
 
 
         function reset() {
-
             numberSquare = parseInt(prompt('number of squares?', 16));
-            createSquares(numberSquare);
+            if (numberSquare <= 64) {
+                createSquares(numberSquare);
+            } else {
+                alert(`Number's too big. It'll melt your cpu!`);
+            }
+        }
 
-
+        function changeColorHover() {
+            resetButton.style.backgroundColor = '#5A4FCF'
+        }
+        function changeColorOut() {
+            resetButton.style.backgroundColor = '#B2FFFF'
         }
 
 
