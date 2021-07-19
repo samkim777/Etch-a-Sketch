@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
 
@@ -9,7 +10,10 @@
 
 <body id='body'>
     <div id='main_backgroundDiv'>
-        <p id='top_headline'></p>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Press+Start+2P&display=swap');
+        </style>
+        <h1 id='headline' style='font-family:"Indie Flower"'> Etch-a-Sketch</h1>
         <div id='backgroundDiv'>
             <div id='main_div'>
             </div>
@@ -19,13 +23,14 @@
 
 
     <script>
+
         let body = document.getElementById('body');
         let main_backgroundDiv = document.getElementById('main_backgroundDiv');
         let background_div = document.getElementById('backgroundDiv');
         let main_div = document.getElementById('main_div');
         let square_list = [];
         let resetButton = document.getElementById('reset_btn');
-        let headline = document.getElementById('top_headline')
+        let headline = document.getElementById('headline')
 
         var numberSquare;
         var squareSize;
@@ -36,7 +41,10 @@
         const divSize = '400px';
         const squareColour = 'pink';
         // Headline
-
+        headline.style.position = 'absolute'
+        headline.style.top = '1%'
+        headline.style.left = '38%'
+        headline.style.fontSize = '60px'
 
 
 
@@ -146,8 +154,10 @@
             numberSquare = parseInt(prompt('number of squares?', 16));
             if (numberSquare <= 64) {
                 createSquares(numberSquare);
-            } else {
+            } else if (numberSquare > 64) {
                 alert(`Number's too big. It'll melt your cpu!`);
+            } else {
+                alert('Please enter a valid number!')
             }
         }
 
